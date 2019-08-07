@@ -1,0 +1,243 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Product List
+          <button type="button" class="btn btn-primary mr-1" id="modal_open" data-toggle="modal" (click)="formatModal();primaryModal.show()" style="float:right;">
+            + Add New
+          </button>
+        </div>
+        <div class="card-body">
+          <table id="productsTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%"></table>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<div bsModal #primaryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document" style="max-width: 800px;">
+    <div class="modal-content">
+      <form (ngSubmit)="submit()" #submitForm="ngForm">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ modal_title }}</h4>
+          <button type="button" class="close" (click)="primaryModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">ID</label>
+            <div class="col-md-9">
+              <p class="form-control-static">{{ id }}</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Category</label>
+            <div class="col-md-9">
+              <select [(ngModel)]="categoryId" name="categoryId" class="form-control">
+                <option *ngFor="let category_info of category_list" value="{{ category_info.id }}">{{ category_info.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Product Name</label>
+            <div class="col-md-9">
+              <input type="text" name="name" [(ngModel)]="name" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Currency</label>
+            <div class="col-md-9">
+              <input type="text" name="currency" [(ngModel)]="currency" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Price</label>
+            <div class="col-md-9">
+              <input type="text" name="price" [(ngModel)]="price" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Max Order Count</label>
+            <div class="col-md-9">
+              <input type="text" name="maxQty" [(ngModel)]="maxQty" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Description</label>
+            <div class="col-md-9">
+              <textarea name="description" [(ngModel)]="description" rows="9" class="form-control" placeholder="Description.."></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Avaliable Meal</label>
+            <div class="col-md-9">
+              <div *ngFor="let meal_type of meal_type_list" class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="checkbox" name="meal_type_{{ meal_type.id }}">
+                <label class="form-check-label">{{ meal_type.name }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Available Class</label>
+            <div class="col-md-9">
+              <div *ngFor="let class_type of class_type_list" class="form-check form-check-inline mr-1">
+                <input class="form-check-input" type="checkbox" name="class_type_{{ class_type.id }}">
+                <label class="form-check-label">{{ class_type.name }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Available Days</label>
+            <div class="col-md-9 col-form-label">
+              <div class="form-check form-check-inline mr-1">
+                <div *ngIf="onDaysMon; then onDaysMonTrue else onDaysMonFalse"></div>
+                <ng-template #onDaysMonTrue><input class="form-check-input" type="checkbox" name="onDaysMon" checked></ng-template>
+                <ng-template #onDaysMonFalse><input class="form-check-input" type="checkbox" name="onDaysMon"></ng-template>
+                <label class="form-check-label">Mon</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                  <div *ngIf="onDaysTue; then onDaysTueTrue else onDaysTueFalse"></div>
+                  <ng-template #onDaysTueTrue><input class="form-check-input" type="checkbox" name="onDaysTue" checked></ng-template>
+                  <ng-template #onDaysTueFalse><input class="form-check-input" type="checkbox" name="onDaysTue"></ng-template>
+                <label class="form-check-label">Tue</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                  <div *ngIf="onDaysWed; then onDaysWedTrue else onDaysWedFalse"></div>
+                  <ng-template #onDaysWedTrue><input class="form-check-input" type="checkbox" name="onDaysWed" checked></ng-template>
+                  <ng-template #onDaysWedFalse><input class="form-check-input" type="checkbox" name="onDaysWed"></ng-template>
+                <label class="form-check-label">Wed</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                  <div *ngIf="onDaysThu; then onDaysThuTrue else onDaysThuFalse"></div>
+                  <ng-template #onDaysThuTrue><input class="form-check-input" type="checkbox" name="onDaysThu" checked></ng-template>
+                  <ng-template #onDaysThuFalse><input class="form-check-input" type="checkbox" name="onDaysThu"></ng-template>
+                <label class="form-check-label">Thu</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                  <div *ngIf="onDaysFri; then onDaysFriTrue else onDaysFriFalse"></div>
+                  <ng-template #onDaysFriTrue><input class="form-check-input" type="checkbox" name="onDaysFri" checked></ng-template>
+                  <ng-template #onDaysFriFalse><input class="form-check-input" type="checkbox" name="onDaysFri"></ng-template>
+                <label class="form-check-label">Fri</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                  <div *ngIf="onDaysSat; then onDaysSatTrue else onDaysSatFalse"></div>
+                  <ng-template #onDaysSatTrue><input class="form-check-input" type="checkbox" name="onDaysSat" checked></ng-template>
+                  <ng-template #onDaysSatFalse><input class="form-check-input" type="checkbox" name="onDaysSat"></ng-template>
+                <label class="form-check-label">Sat</label>
+              </div>
+              <div class="form-check form-check-inline mr-1">
+                  <div *ngIf="onDaysSun; then onDaysSunTrue else onDaysSunFalse"></div>
+                  <ng-template #onDaysSunTrue><input class="form-check-input" type="checkbox" name="onDaysSun" checked></ng-template>
+                  <ng-template #onDaysSunFalse><input class="form-check-input" type="checkbox" name="onDaysSun"></ng-template>
+                <label class="form-check-label">Sun</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Status</label>
+            <div class="col-md-9">
+              <select class="form-control" [(ngModel)]="status" name="status" value="enabled">
+                <option value="enabled">Enabled</option>
+                <option value="disabled">Disabled</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="primaryModal.hide()">Close</button>
+          <button type="submit" class="btn btn-primary" style="width: 100px;">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div bsModal #imageModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document" style="max-width: 800px;">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">Manager Product Image</h4>
+          <button type="button" class="close" (click)="imageModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="text-input">Image</label>
+            <div class="col-md-9">
+              <div class="col-md-12" style="text-align: center;">
+                <img src="{{ base_url }}{{ selectedImg }}" class="selectedImg">
+              </div>
+              <div class="row">
+                <div class="col-md-2" *ngFor="let img of imgList" style="margin:10px 0px;">
+                  <img src="{{ base_url }}{{ img }}" class="imgListItem" (click)="selectImg(img)">
+                  <span class="btn-close-selected-img" (click)="deleteImg(img)"><i class="fa fa-close"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <input type="file" (change)="fileChange($event)" multiple>
+          <span (click)="uploadNewImages()" class="btn btn-primary" style="margin-left:20px;cursor:pointer;">Upload New Images</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div bsModal #optionModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document" style="max-width: 800px;">
+      <div class="modal-content">
+        <form (ngSubmit)="submitOption()" #submitForm="ngForm">
+          <div class="modal-header">
+            <h4 class="modal-title">Manage Produt Option</h4>
+            <button type="button" class="close" (click)="optionModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">            
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Option</label>
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-3">Name</div>
+                  <div class="col-md-3">Price</div>
+                  <div class="col-md-3">Status</div>
+                </div>
+                <div [formGroup]="optionGroup">
+                  <div formArrayName="options">
+                    <div *ngFor="let item of optionValues.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                      <div class="row">
+                        <div class="col-md-3"><input formControlName="name" class="form-control"/></div>
+                        <div class="col-md-3"><input formControlName="price" class="form-control"/></div>
+                        <div class="col-md-3">
+                          <label class="switch switch-3d switch-primary">
+                            <input type="checkbox" formControlName="status" class="switch-input" checked>
+                            <span class="switch-slider"></span>
+                          </label>
+                        </div>
+                        <div class="col-md-3"><button type="button" (click)="deleteOptionValue(pointIndex)" class="btn btn-danger">Delete</button></div>
+                      </div>
+                    </div>
+                    <button type="button" (click)="addOptionValue()" class="btn btn-success">+ Add New Option</button>
+                  </div>        
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="optionModal.hide()">Close</button>
+            <button type="submit" class="btn btn-primary" style="width: 100px;">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

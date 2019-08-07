@@ -1,0 +1,41 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <form (ngSubmit)="changePwd()" #submitForm="ngForm">
+          <div class="card-header">
+            <strong>Change password</strong>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label">Current Password</label>
+              <div class="col-md-8">
+                <input type="password" [(ngModel)]="curPwd" name="curPwd" class="form-control" required>
+                <span class="help-block">Please enter your current password</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label">New Password</label>
+              <div class="col-md-8">
+                <input type="password" [(ngModel)]="newPwd" name="newPwd" class="form-control" required>
+                <span class="help-block">Please enter your new password</span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label">Confirm Password</label>
+              <div class="col-md-8">
+                <input type="password" [(ngModel)]="cfmPwd" name="cfmPwd" class="form-control" required>
+                <span class="help-block">Please enter your confirm password</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer" style="height: 60px;">
+            <button type="submit" class="btn btn-sm btn-primary" style="float: right;"><i class="fa fa-dot-circle-o"></i> Submit</button>
+            <button type="reset" class="btn btn-sm btn-danger" style="float: left;"><i class="fa fa-ban"></i> Reset</button>
+          </div>
+        </form>
+      </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

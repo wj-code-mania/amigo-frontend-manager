@@ -1,0 +1,28 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Stripe Setup
+        </div>      
+        <div *ngIf="authorized; then authorizedTrue else authorizedFalse"></div>
+        <ng-template #authorizedTrue>
+          <div class="card-body" style="text-align: center;cursor: not-allowed;">
+            <span class="btn btn-success">Connected</span>
+          </div>  
+          <div role="alert" class="alert alert-success" ng-reflect-klass="alert alert-success" ng-reflect-ng-class="">
+            Well done! Your stripe account successfully autherized.<br> Your User Id : <strong>{{ stripeUserId }}</strong>
+          </div>
+        </ng-template>
+        <ng-template #authorizedFalse>
+          <div class="card-body" style="text-align: center;cursor: pointer;">
+            <a href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_AkcWuztRxWkzvR7W8wvjhgSk1uhhx423&scope=read_write&redirect_uri=http://localhost:4200/callback/stripe" class="btn btn-primary">Connect</a>
+          </div>  
+          <div role="alert" class="alert alert-danger" ng-reflect-klass="alert alert-danger" ng-reflect-ng-class="">
+            Not Connected!. click "Connect" to authenticate your stripe account.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

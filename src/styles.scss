@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* // Import styles */
+@import "~@coreui/coreui/scss/coreui";
+
+.card{
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)!important;
+}
+.card-header, .card-footer{
+    background-color: #ffffff;
+}

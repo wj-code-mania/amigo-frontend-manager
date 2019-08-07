@@ -1,0 +1,73 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Category List      
+          <button type="button" class="btn btn-primary mr-1" id="modal_open" data-toggle="modal" (click)="formatModal();primaryModal.show()" style="float:right;">
+            + Add New
+          </button>
+        </div>
+        <div class="card-body">
+          <table id="categoriesTable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%"></table>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<div bsModal #primaryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-primary" role="document">
+    <div class="modal-content">
+      <form (ngSubmit)="submit()" #submitForm="ngForm">
+        <div class="modal-header">
+          <h4 class="modal-title">{{ modal_title }}</h4>
+          <button type="button" class="close" (click)="primaryModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-primary" style="width: 100px;"> ID</button>
+                </span>
+                <input type="text" [(ngModel)]="id" name="id" class="form-control" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-primary" style="width: 100px;"><i class="fa fa-user"></i> Name</button>
+                </span>
+                <input type="text" [(ngModel)]="name" name="name" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <span class="input-group-prepend">
+                  <button type="button" class="btn btn-primary" style="width: 100px;"><i class="fa fa-check-square-o"></i> Status</button>
+                </span>
+                <select class="form-control" [(ngModel)]="status" name="status" value="enabled">
+                  <option value="enabled">Enabled</option>
+                  <option value="disabled">Disabled</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="primaryModal.hide()">Close</button>
+          <button type="submit" class="btn btn-primary" style="width: 100px;">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
